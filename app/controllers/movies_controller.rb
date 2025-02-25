@@ -1,6 +1,9 @@
 class MoviesController < ApplicationController
   def update
-
+    #get the ID out of params 
+    #look up existing record
+    # overwrite each column with values from user inputs 
+    #redirect to movie details page 
     m_id = params.fetch("the_id")
 
 
