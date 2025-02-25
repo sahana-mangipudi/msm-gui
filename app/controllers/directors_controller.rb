@@ -39,25 +39,24 @@ class DirectorsController < ApplicationController
 
   def create
     director = Director.new
-    director.name = params.fetch("the_name")
-    #director.dob = params.fetch("")
-    #director.bio = params.fetch("")
-    director.image = params.fetch("the_image")
+    director.name = params.fetch("director_name")
+    director.dob = params.fetch("director_dob")
+    director.bio = params.fetch("director_bio")
+    director.image = params.fetch("director_image")
 
-    if actor.save
+    director.save
       redirect_to("/actors")
-    else
-      render({ :template => "actor_templates/index" })
     end
-  end
 
   def update
     the_id = params.fetch("path_id")
-    actor = Actor.find(the_id)
+    director = Director.find(the_id)
+    director_updated.name = params.fetch("director_name")
+    director_updated.dob = params.fetch("director_dob")
+    director_updated.bio = params.fetch("director_bio")
+    director_updated.image = params.fetch("director_image")
 
-    actor.image = params.fetch("the_image")
-
-    if actor.save
+    director.update(name: director_)
       redirect_to("/actors/#{actor.id}")
     else
       render({ :template => "actor_templates/show" })
