@@ -37,37 +37,40 @@ class DirectorsController < ApplicationController
     render({ :template => "director_templates/eldest" })
   end
 
-  def create
+  def new_director
     director = Director.new
-    director.name = params.fetch("director_name")
-    director.dob = params.fetch("director_dob")
-    director.bio = params.fetch("director_bio")
-    director.image = params.fetch("director_image")
+
+    director.name = params.fetch("query_name")
+    director.dob = params.fetch("query_dob")
+    director.bio = params.fetch("query_bio")
+    director.image = params.fetch("query_image")
 
     director.save
-      redirect_to("/actors")
-    end
 
-  def update
-    the_id = params.fetch("path_id")
-    director = Director.find(the_id)
-    director_updated.name = params.fetch("director_name")
-    director_updated.dob = params.fetch("director_dob")
-    director_updated.bio = params.fetch("director_bio")
-    director_updated.image = params.fetch("director_image")
-
-    director.update(name: director_)
-      redirect_to("/actors/#{actor.id}")
-    else
-      render({ :template => "actor_templates/show" })
-    end
+    redirect_to("/directors")
   end
 
-  def destroy
+  def delete_director
     the_id = params.fetch("path_id")
-    actor = Actor.find(the_id)
-    actor.destroy
+    director = Director.find(the_id)
 
-    redirect_to("/actors")
+    director.delete
+
+    redirect_to("/directors")
+  end
+
+  def update_director
+    the_id = params.fetch("path_id")
+    director = Director.find(the_id)
+
+    updated_name = params.fetch("query_name")
+    updated_dob = params.fetch("query_dob")
+    updated_bio = params.fetch("query_bio")
+    updated_image = params.fetch("query_image")
+
+    director.update(name: updated_name, dob: updated_dob, bio: updated_bio,
+                    image: updated_image)
+
+    redirect_to("/directors/#{the_id}")
   end
 end
